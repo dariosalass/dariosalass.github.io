@@ -1,0 +1,174 @@
+! ======================================================================
+! PLANTILLA DE REFERENCIA CISCO IOS (SSH, VLANs, OSPF, BGP, ACLs)
+! Autor: Darío Salas Amador - 1º ASIR, Planificación y Administración de Redes
+! Uso: sustituir los valores [ENTRE_CORCHETES] por los de cada escenario.
+! ======================================================================
+
+! ======================================================================
+! 1. CONFIGURACIÓN BÁSICA Y ACCESO SSH (Para TODOS los equipos)
+! ======================================================================
+enable
+configure terminal
+hostname [NOMBRE_DISPOSITIVO]
+enable secret [PASS_PRIVILEGIADA]
+no ip domain-lookup
+ip domain-name [DOMINIO.LOCAL]
+username [USUARIO_ADMIN] privilege 15 secret [PASS_SSH]
+crypto key generate rsa
+1024
+ip ssh version 2
+line console 0
+password [PASS_CONSOLA]
+login
+exit
+line vty 0 4
+transport input ssh
+login local
+exit
+
+! ======================================================================
+! 2. CAPA 2: SWITCHING Y VLANs
+! ======================================================================
+! --- Crear VLANs ---
+vlan [ID_VLAN_1]
+name [NOMBRE_VLAN_1]
+vlan [ID_VLAN_2]
+name [NOMBRE_VLAN_2]
+exit
+
+! --- Puertos de Acceso (Hacia los PCs) ---
+interface [INT_ACCESO_EJ_Fa0/1]
+switchport mode access
+switchport access vlan [ID_VLAN]
+no shutdown
+exit
+
+! --- Puertos Troncales (Hacia Routers u otros Switches) ---
+interface [INT_TRONCAL_EJ_Fa0/24]
+switchport mode trunk
+switchport trunk allowed vlan [ID_VLAN_1],[ID_VLAN_2],[VLAN_ADMIN]
+no shutdown
+exit
+
+! --- IP de Administración del Switch ---
+interface vlan [ID_VLAN_ADMIN]
+ip address [IP_SWITCH] [MASCARA_RED]
+no shutdown
+exit
+ip default-gateway [IP_GATEWAY_ROUTER]
+
+! ======================================================================
+! 3. CAPA 3: ENRUTAMIENTO LOCAL Y DHCP (Routers)
+! ======================================================================
+! --- Activar Interfaz Física ---
+interface [INT_FISICA_EJ_Gi0/1]
+no shutdown
+exit
+
+! --- Subinterfaces (Router on a Stick) ---
+interface [INT_FISICA].[ID_VLAN]
+encapsulation dot1Q [ID_VLAN]
+ip address [IP_GATEWAY_VLAN] [MASCARA_SUBRED]
+description [DESCRIPCION_VLAN]
+exit
+
+! --- Servidor DHCP (Si piden asignar IPs automáticamente a los PCs) ---
+ip dhcp pool [NOMBRE_POOL_VLAN_10]
+network [IP_RED] [MASCARA_RED]
+default-router [IP_GATEWAY_VLAN]
+dns-server [IP_SERVIDOR_DNS]
+exit
+ip dhcp excluded-address [IP_GATEWAY_VLAN] [IP_FIN_EXCLUIDAS_OPCIONAL]
+
+! ======================================================================
+! 4. ENRUTAMIENTO DINÁMICO: OSPF MULTI-ÁREA
+! ======================================================================
+router ospf [ID_PROCESO_EJ_1]
+router-id [ID_ROUTER_EJ_1.1.1.1]
+
+! --- Evitar enviar paquetes OSPF por las VLANs de usuarios (Mejora seguridad) ---
+passive-interface [INT_FISICA].[ID_VLAN_DATOS]
+
+! --- Declaración de redes (Backbone y Áreas Locales) ---
+network [IP_RED_AREA0] [WILDCARD] area 0
+network [IP_RED_AREA_X] [WILDCARD] area [ID_AREA]
+exit
+
+! ======================================================================
+! 5. ENRUTAMIENTO EXTERNO: BGP E ISP
+! ======================================================================
+! --- BGP en Router Fronterizo ---
+router bgp [AS_LOCAL]
+bgp router-id [ID_ROUTER_EJ_3.3.3.3]
+neighbor [IP_VECINO_1] remote-as [AS_VECINO_1]
+network [IP_RED_PROPIA] mask [MASCARA_RED]
+exit
+
+! --- ISP: Simular Salida a Internet ---
+ip route 0.0.0.0 0.0.0.0 Null0
+router bgp [AS_ISP]
+bgp router-id [ID_ROUTER_ISP]
+neighbor [IP_VECINO_EMPRESA] remote-as [AS_EMPRESA]
+network 0.0.0.0
+exit
+
+! ======================================================================
+! 6. REDISTRIBUCIÓN DE RUTAS (Frontera BGP-OSPF)
+! ======================================================================
+! --- Inyectar OSPF en BGP ---
+router bgp [AS_LOCAL]
+redistribute ospf [ID_PROCESO_EJ_1] match internal external 1 external 2
+exit
+
+! --- Inyectar BGP y Ruta por Defecto en OSPF ---
+router ospf [ID_PROCESO_EJ_1]
+redistribute bgp [AS_LOCAL] subnets
+default-information originate
+exit
+
+! ======================================================================
+! 7. SEGURIDAD Y FILTRADO: ACLs
+! ======================================================================
+! --- 7.1 ACL ESTÁNDAR: Restringir SSH (Aplicar en todos los equipos) ---
+ip access-list standard ACL-SSH
+permit [IP_RED_ADMIN_1] [WILDCARD_ADMIN_1]
+deny any
+exit
+line vty 0 4
+access-class ACL-SSH in
+exit
+
+! --- 7.2 ACL EXTENDIDA: Aislar VLANs de Datos ---
+ip access-list extended ACL-DATOS
+permit ip [IP_RED_ADMIN] [WILDCARD_ADMIN] any
+deny ip [IP_RED_DATOS_1] [WILDCARD_DATOS_1] [IP_RED_DATOS_2] [WILDCARD_DATOS_2]
+permit ip any any
+exit
+interface [INT_FISICA].[ID_VLAN_DATOS]
+ip access-group ACL-DATOS in
+exit
+
+! --- 7.3 ACL EXTENDIDA: Proteger DMZ (Correo y DNS) ---
+ip access-list extended ACL-DMZ
+permit udp [IP_RED_INTERNA] [WILDCARD] host [IP_DNS] eq 53
+deny udp any host [IP_DNS] eq 53
+permit tcp [IP_RED_ADMIN] [WILDCARD] host [IP_CORREO] eq 25
+permit tcp [IP_RED_ADMIN] [WILDCARD] host [IP_CORREO] eq 110
+deny tcp any host [IP_CORREO] eq 25
+permit ip any any
+exit
+interface [INT_HACIA_DMZ_EJ_Gi0/1]
+ip access-group ACL-DMZ in
+exit
+
+! ======================================================================
+! 8. TROUBLESHOOTING RAPIDO (Comandos de verificación)
+! ======================================================================
+! show ip interface brief       -> Ver estado físico de los puertos y sus IPs.
+! show ip route                 -> Ver tabla de enrutamiento (C, O, B, S*).
+! show ip ospf neighbor         -> Comprobar si OSPF ha levantado con el vecino.
+! show ip bgp summary           -> Comprobar conexiones BGP (Debe haber números, no 'Active').
+! show vlan brief               -> Comprobar puertos asignados a VLANs.
+! show interfaces trunk         -> Confirmar qué puertos están pasando múltiples VLANs.
+! show access-lists             -> Ver si las ACL están bloqueando paquetes (matches).
+! ======================================================================

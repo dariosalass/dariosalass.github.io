@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HardSystems | Inicio</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">Hard<span>Systems</span></a>
+            <button id="boton-menu" class="btn-menu" onclick="toggleMenu()">MENU</button>
+            <ul class="menu" id="menu-principal">
+                <li><a href="index.html" class="activo">Inicio</a></li>
+                <li><a href="productos.html">Catálogo</a></li>
+                <li><a href="contacto.html">Soporte</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="hero">
+            <h1>Infraestructura & Hardware</h1>
+            <p>> Root Server Access_</p>
+        </div>
+
+        <section class="banner interactivo" id="banner-oferta" onclick="aplicarPromo()">
+            <div class="banner-header">
+                <span class="etiqueta">PROMO</span>
+                <h2 id="titulo-oferta">Descuentos en procesadores</h2>
+            </div>
+            <p>Haz clic en este panel para revelar tu código de descuento oculto.</p>
+        </section>
+
+        <section class="banner">
+            <div class="banner-header">
+                <span class="etiqueta">NUEVO</span>
+                <h2>Últimas entradas en stock</h2>
+            </div>
+            <p>Hemos actualizado el inventario con nuevas GPUs serie RTX.</p>
+        </section>
+
+        <section class="banner">
+            <div class="banner-header">
+                <span class="etiqueta">SYSADMIN</span>
+                <h2>Administración de Sistemas</h2>
+            </div>
+            <p>Configuración de redes locales y despliegue de distribuciones Linux.</p>
+        </section>
+
+        <section class="banner">
+            <div class="banner-header">
+                <span class="etiqueta">FEEDBACK</span>
+                <h2>Métricas de satisfacción</h2>
+            </div>
+            <p>"La gestión de cableado es impecable." - Usuario Registrado 04</p>
+        </section>
+    </main>
+    <script src="js/script.js"></script>
+</body>
+</html>

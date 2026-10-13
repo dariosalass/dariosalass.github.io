@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto - HardSystems</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">Hard<span>Systems</span></a>
+            <button id="boton-menu" class="btn-menu" onclick="toggleMenu()">MENU</button>
+            <ul class="menu" id="menu-principal">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="productos.html">Catálogo</a></li>
+                <li><a href="contacto.html" class="activo">Soporte</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="hero">
+            <h1>Conexión</h1>
+            <p>> Ping support server_</p>
+        </div>
+
+        <section class="banner">
+            <div class="banner-header">
+                <span class="etiqueta">TICKET</span>
+                <h2>Apertura de caso</h2>
+            </div>
+            <form id="form-contacto" class="formulario-flex" onsubmit="return validarFormulario()">
+                <div class="campo">
+                    <label>Identificador (Nombre)</label>
+                    <input type="text" id="nombre" placeholder="Tu nombre" onfocus="resaltarInput()" onblur="comprobarInput()">
+                </div>
+                <div class="campo">
+                    <label>Dirección de respuesta (Email)</label>
+                    <input type="email" id="email" placeholder="correo@ejemplo.com">
+                </div>
+                <div class="campo">
+                    <label>Registro de log (Mensaje)</label>
+                    <textarea rows="4" placeholder="Detalla tu incidencia..."></textarea>
+                </div>
+                <button type="submit">EJECUTAR ENVÍO</button>
+            </form>
+        </section>
+
+        <section class="banner">
+            <div class="banner-header">
+                <span class="etiqueta">HOST</span>
+                <h2>Ubicación física</h2>
+            </div>
+            <p>Soporte técnico centralizado. Envíos logísticos a toda la península.</p>
+        </section>
+
+        <section class="banner">
+            <div class="banner-header">
+                <span class="etiqueta">SLA</span>
+                <h2>Tiempos de respuesta</h2>
+            </div>
+            <p>Lectura de tickets en menos de 4 horas hábiles.</p>
+        </section>
+
+        <section class="banner">
+            <div class="banner-header">
+                <span class="etiqueta">RUTAS</span>
+                <h2>Canales alternativos</h2>
+            </div>
+            <p>Contacto directo vía correo electrónico: admin@hardsystems.local</p>
+        </section>
+    </main>
+    <script src="js/script.js"></script>
+</body>
+</html>

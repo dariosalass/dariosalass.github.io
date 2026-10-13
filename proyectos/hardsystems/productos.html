@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HardSystems | Catálogo</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">HardSystems</a>
+            <button id="boton-menu" class="btn-menu" onclick="toggleMenu()">MENU</button>
+            <ul class="menu" id="menu-principal">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="productos.html" class="activo">Catálogo</a></li>
+                <li><a href="contacto.html">Soporte</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="hero">
+            <h1>Componentes</h1>
+            <p>> Hardware list_</p>
+        </div>
+
+        <section class="banner">
+            <div class="banner-header">
+                <div class="etiqueta">HARDWARE</div>
+                <h2>Inventario Principal</h2>
+            </div>
+            
+            <div class="grid-productos">
+                <article class="tarjeta" id="tarjeta-1" onmouseover="mostrarStock()" onmouseout="ocultarStock()">
+                    <div class="stock-tooltip" id="stock-1">12 uds. en almacén</div>
+                    <img src="img/i5.jpg" alt="Procesador Intel Core i5-11400F" class="img-producto" onerror="this.style.display='none'">
+                    <h3>Intel Core i5-11400F</h3>
+                    <p class="precio">145 €</p>
+                    <button>Añadir</button>
+                </article>
+
+                <article class="tarjeta">
+                    <img src="img/3060.jpg" alt="Tarjeta Gráfica NVIDIA RTX 3060" class="img-producto" onerror="this.style.display='none'">
+                    <h3>NVIDIA RTX 3060 12GB</h3>
+                    <p class="precio">310 €</p>
+                    <button>Añadir</button>
+                </article>
+
+                <article class="tarjeta">
+                    <img src="img/RAM.jpg" alt="Memoria RAM 16GB DDR4" class="img-producto" onerror="this.style.display='none'">
+                    <h3>RAM 16GB DDR4 3200MHz</h3>
+                    <p class="precio">45 €</p>
+                    <button>Añadir</button>
+                </article>
+            </div>
+        </section>
+
+        <section class="banner">
+            <div class="banner-header">
+                <div class="etiqueta">EXTRAS</div>
+                <h2>Periféricos Competitivos</h2>
+            </div>
+            <p>Monitores de alta tasa de refresco y teclados mecánicos de respuesta rápida.</p>
+        </section>
+
+        <section class="banner">
+            <div class="banner-header">
+                <div class="etiqueta">SOFTWARE</div>
+                <h2>Despliegues a medida</h2>
+            </div>
+            <p>Instalación limpia de Ubuntu Server o configuraciones RAID.</p>
+        </section>
+
+        <section class="banner">
+            <div class="banner-header">
+                <div class="etiqueta">LEGAL</div>
+                <h2>Garantía del Sistema</h2>
+            </div>
+            <p>Todos los componentes pasan un test de estrés antes del envío.</p>
+        </section>
+    </main>
+    <script src="js/script.js"></script>
+</body>
+</html>

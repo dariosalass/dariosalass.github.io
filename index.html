@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Darío Salas Amador · Portfolio de Sistemas y Redes</title>
+<meta name="description" content="Portfolio de Darío Salas Amador, técnico de sistemas y redes (SMR) y estudiante de 2º de ASIR en Málaga.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0f141c; --panel:#161d28; --panel2:#1c2533; --line:#273244;
+  --txt:#e4e9f1; --mut:#9aa6b8; --dim:#6c788b;
+  --amber:#f2b84b; --ok:#5fd18b; --blue:#7fb2ff;
+  --sans:'IBM Plex Sans',system-ui,sans-serif; --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:var(--sans);font-size:17px;line-height:1.6}
+a{color:inherit}
+.wrap{max-width:1040px;margin:0 auto;padding:0 24px}
+
+/* top bar */
+.bar{border-bottom:1px solid var(--line);background:rgba(15,20,28,.9);position:sticky;top:0;z-index:10;backdrop-filter:blur(6px)}
+.bar .wrap{display:flex;align-items:center;justify-content:space-between;height:56px;gap:16px}
+.host{font-family:var(--mono);font-size:14px;color:var(--mut)}
+.host b{color:var(--ok);font-weight:500}
+.bar nav{display:flex;gap:22px;font-size:15px}
+.bar nav a{text-decoration:none;color:var(--mut)}
+.bar nav a:hover{color:var(--txt)}
+
+/* hero */
+.hero{padding:72px 0 56px;display:grid;grid-template-columns:1fr 210px;gap:48px;align-items:center}
+.prompt{font-family:var(--mono);font-size:15px;color:var(--dim);margin-bottom:18px}
+.prompt span{color:var(--amber)}
+h1{font-size:clamp(40px,6vw,64px);line-height:1.05;font-weight:700;letter-spacing:-.02em}
+.role{font-size:21px;color:var(--mut);margin-top:14px;max-width:34ch}
+.status{display:flex;flex-wrap:wrap;gap:10px 22px;margin-top:26px;font-family:var(--mono);font-size:14px;color:var(--mut)}
+.status i{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--ok);margin-right:8px;box-shadow:0 0 8px var(--ok)}
+.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 18px;border-radius:6px;text-decoration:none;font-weight:600;font-size:15px;border:1px solid var(--line);background:var(--panel)}
+.btn:hover{border-color:var(--mut)}
+.btn.main{background:var(--amber);color:#1a1405;border-color:var(--amber)}
+.btn.main:hover{filter:brightness(1.07)}
+.photo{width:210px;height:210px;border-radius:50%;object-fit:cover;border:3px solid var(--panel2);outline:1px solid var(--line);outline-offset:6px}
+
+section{padding:56px 0;border-top:1px solid var(--line)}
+h2{font-size:28px;font-weight:700;letter-spacing:-.01em;margin-bottom:8px}
+.lead{color:var(--mut);max-width:62ch;margin-bottom:32px}
+
+/* featured */
+.feat{display:grid;grid-template-columns:1.3fr 1fr;gap:20px}
+.box{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:26px;display:flex;flex-direction:column}
+.box.big{grid-row:span 2;background:linear-gradient(180deg,var(--panel2),var(--panel))}
+.box h3{font-size:21px;margin-bottom:6px}
+.box p{color:var(--mut);font-size:16px}
+.ctx{font-family:var(--mono);font-size:13px;color:var(--dim);margin-bottom:12px}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin:16px 0 20px}
+.tags span{font-family:var(--mono);font-size:12.5px;color:var(--blue);background:rgba(127,178,255,.08);border:1px solid rgba(127,178,255,.2);padding:2px 8px;border-radius:4px}
+.links{margin-top:auto;display:flex;flex-wrap:wrap;gap:16px;font-weight:600;font-size:15px}
+.links a{color:var(--amber);text-decoration:none}
+.links a:hover{text-decoration:underline}
+.term{font-family:var(--mono);font-size:13px;background:#0b0f15;border:1px solid var(--line);border-radius:6px;padding:14px 16px;margin:18px 0 4px;color:#c9d3e0;line-height:1.7;overflow-x:auto;white-space:pre}
+.term .c{color:var(--dim)} .term .k{color:var(--ok)}
+
+/* project rows */
+.area{margin-top:40px}
+.area h3{font-size:19px;margin-bottom:4px}
+.area>p{color:var(--dim);font-size:15px;margin-bottom:10px}
+.row{display:grid;grid-template-columns:1fr auto;gap:6px 24px;padding:16px 0;border-bottom:1px solid var(--line);align-items:baseline}
+.row:first-of-type{border-top:1px solid var(--line)}
+.row h4{font-size:17px;font-weight:600}
+.row p{grid-column:1;color:var(--mut);font-size:15.5px}
+.row .meta{font-family:var(--mono);font-size:13px;color:var(--dim);grid-column:1}
+.row a{grid-row:1/span 3;grid-column:2;align-self:center;color:var(--amber);text-decoration:none;font-weight:600;font-size:15px;white-space:nowrap}
+.row a:hover{text-decoration:underline}
+
+/* stack */
+.stack{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:28px 32px}
+.stack h4{font-family:var(--mono);font-size:14px;color:var(--amber);font-weight:500;margin-bottom:8px}
+.stack p{color:var(--mut);font-size:15.5px}
+.learning{margin-top:30px;padding:18px 20px;border:1px dashed var(--line);border-radius:8px;color:var(--mut);font-size:15.5px}
+.learning b{color:var(--txt)}
+
+footer{border-top:1px solid var(--line);padding:40px 0 60px;color:var(--mut);font-size:15px}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px}
+footer a{color:var(--txt)}
+
+@media (max-width:820px){
+  .hero{grid-template-columns:1fr;padding-top:44px}
+  .photo{order:-1;width:140px;height:140px}
+  .feat{grid-template-columns:1fr}
+  .box.big{grid-row:auto}
+  .bar nav{display:none}
+  .row{grid-template-columns:1fr}
+  .row a{grid-row:auto;grid-column:1;margin-top:4px}
+}
+</style>
+</head>
+<body>
+
+<header class="bar"><div class="wrap">
+  <div class="host"><b>dario@portfolio</b>:~$</div>
+  <nav><a href="#destacados">Destacados</a><a href="#proyectos">Proyectos</a><a href="#stack">Stack</a><a href="#contacto">Contacto</a></nav>
+</div></header>
+
+<main class="wrap">
+  <div class="hero">
+    <div>
+      <p class="prompt"><span>$</span> whoami</p>
+      <h1>Darío Salas Amador</h1>
+      <p class="role">Técnico de Sistemas y Redes, estudiante de 2º de ASIR en DigitechFP Málaga.</p>
+      <div class="status">
+        <span><i></i>Disponible para la estancia en empresa · feb/mar 2027</span>
+        <span>Málaga</span>
+      </div>
+      <div class="actions">
+        <a class="btn main" href="CV_Dario_Salas_Amador_ASIR.pdf" target="_blank">Descargar CV</a>
+        <a class="btn" href="mailto:dariiosalaas@gmail.com">dariiosalaas@gmail.com</a>
+        <a class="btn" href="https://github.com/dariosalass" target="_blank">GitHub</a>
+      </div>
+    </div>
+    <img class="photo" src="foto.jpg" alt="Darío Salas Amador">
+  </div>
+
+  <section id="destacados">
+    <h2>Trabajos destacados</h2>
+    <p class="lead">Lo más cercano a un entorno real de lo que he hecho en SMR y ASIR: servidores en la nube, configuración de red de nivel empresa, análisis forense y una web completa publicada aquí mismo.</p>
+
+    <div class="feat">
+      <article class="box big">
+        <p class="ctx">SMR · Servidores web</p>
+        <h3>Servidor web LEMP en la nube y despliegue de Moodle</h3>
+        <p>Puesta en marcha de un servidor Linux con IP pública, accedido por SSH, sobre el que instalé Nginx, MySQL y PHP, abrí los puertos necesarios en el cortafuegos y desplegué una plataforma Moodle completa.</p>
+        <div class="term"><span class="c"># fragmento del proceso</span>
+<span class="k">$</span> sudo apt update && sudo apt upgrade
+<span class="k">$</span> sudo apt install nginx
+<span class="k">$</span> sudo ufw allow https</div>
+        <div class="tags"><span>Ubuntu Server</span><span>Nginx</span><span>MySQL</span><span>PHP</span><span>UFW</span><span>SSH</span><span>Moodle</span></div>
+        <div class="links">
+          <a href="https://drive.google.com/file/d/1kxmw2n9m-epfxf1eTGju5qRFZurR8WBJ/view" target="_blank">Guía LEMP</a>
+          <a href="https://drive.google.com/file/d/1afFJ_Y8i8mho3gkK3XYpFxxmf2zFf-AG/view" target="_blank">Despliegue de Moodle</a>
+        </div>
+      </article>
+
+      <article class="box">
+        <p class="ctx">ASIR · Lenguajes de Marcas</p>
+        <h3>Web HardSystems</h3>
+        <p>Web de tres páginas para una tienda de hardware ficticia: catálogo, formulario de soporte con validación y menú adaptable a móvil.</p>
+        <div class="tags"><span>HTML</span><span>CSS Grid</span><span>JavaScript</span><span>Responsive</span></div>
+        <div class="links"><a href="proyectos/hardsystems/" target="_blank">Ver demo en vivo</a><a href="https://github.com/dariosalass/dariosalass.github.io/tree/main/proyectos/hardsystems" target="_blank">Código</a></div>
+      </article>
+
+      <article class="box">
+        <p class="ctx">ASIR · Planificación y Administración de Redes</p>
+        <h3>Plantilla de configuración Cisco IOS</h3>
+        <p>Mi referencia para montar una red completa: acceso SSH, VLANs con router-on-a-stick, DHCP, OSPF multiárea, BGP con redistribución y ACLs para la DMZ.</p>
+        <div class="tags"><span>Cisco IOS</span><span>VLAN</span><span>OSPF</span><span>BGP</span><span>ACL</span></div>
+        <div class="links"><a href="configs/cisco-ios-plantilla.txt" target="_blank">Ver plantilla</a></div>
+      </article>
+    </div>
+
+    <div class="feat" style="margin-top:20px;grid-template-columns:1fr">
+      <article class="box">
+        <p class="ctx">ASIR · Seguridad y Alta Disponibilidad · trabajo en grupo</p>
+        <h3>Kali Linux: herramientas de análisis forense</h3>
+        <p>Presentación sobre el modo forense de Kali, con un caso práctico de adquisición de evidencias (copia bit a bit con verificación SHA-256), recuperación de archivos borrados y extracción de metadatos.</p>
+        <div class="tags"><span>Kali Linux</span><span>dc3dd</span><span>Sleuth Kit</span><span>foremost</span><span>exiftool</span><span>Volatility</span></div>
+        <div class="links"><a href="https://docs.google.com/presentation/d/183PVatCNFspkNwVIMaLQA4g7mGUrxt6EToxhCh41mqk/view" target="_blank">Ver presentación</a></div>
+      </article>
+    </div>
+  </section>
+
+  <section id="proyectos">
+    <h2>Prácticas por áreas</h2>
+    <p class="lead">Documentación de prácticas realizadas en máquinas virtuales y equipos reales, con capturas y comandos paso a paso.</p>
+
+    <div class="area">
+      <h3>Redes y servicios de red</h3>
+      <div class="row"><h4>Subnetting y VLSM</h4><p>Diseño de direccionamiento IPv4 con máscaras de longitud variable para redes de distintos tamaños.</p><span class="meta">ASIR · Planificación y Administración de Redes</span><a href="https://drive.google.com/file/d/1XGE9H97dxjfhBPMJKJtr0MmwNFNR_iFK/view" target="_blank">Ver PDF</a></div>
+      <div class="row"><h4>Direccionamiento y subredes IPv4</h4><p>Clases de red, cálculo de subredes, rangos de hosts y broadcast.</p><span class="meta">ASIR · Planificación y Administración de Redes</span><a href="https://drive.google.com/file/d/1Pa0vt2UiN0hFtUBFgBOhPGr2XvsF8nFj/view" target="_blank">Ver PDF</a></div>
+      <div class="row"><h4>Cableado UTP: normas T568A y T568B</h4><p>Cable de par trenzado, normas T568A y T568B, y cuándo usar cable directo o cruzado.</p><span class="meta">ASIR · Planificación y Administración de Redes</span><a href="https://drive.google.com/file/d/1zIEH_IdvLKVUwumMrK8DzvsC9xAL2pin/view" target="_blank">Ver PDF</a></div>
+      <div class="row"><h4>Servidor DHCP</h4><p>Puesta en marcha de isc-dhcp-server con asignaciones dinámicas y reservas por MAC, gestionado también desde Webmin.</p><span class="meta">SMR · Servicios en Red</span><a href="https://drive.google.com/file/d/1cArABN_LcKIqAEidMBseE_B2aiGQiD8H/view" target="_blank">Ver PDF</a></div>
+      <div class="row"><h4>Servidor DNS con Bind9</h4><p>Creación de una zona de resolución directa y comprobación desde un cliente.</p><span class="meta">SMR · Servicios en Red</span><a href="https://drive.google.com/file/d/1yt1ihgYTp3a1_CxafC5Ae04r9iXdPKxJ/view" target="_blank">Ver PDF</a></div>
+      <div class="row"><h4>Acceso remoto seguro con OpenSSH</h4><p>Instalación, conexión remota, archivo de configuración y cambio del puerto por defecto.</p><span class="meta">SMR · Servicios en Red</span><a href="https://drive.google.com/file/d/1m3Aq0pRV0UCx84J8S_bZt5Yas9JYTleb/view" target="_blank">Ver PDF</a></div>
+      <div class="row"><h4>Servidor FTP</h4><p>Configuración del servicio, modos activo y pasivo, tipos de acceso y por qué FTP no es seguro.</p><span class="meta">SMR · Servicios en Red</span><a href="https://drive.google.com/file/d/1zsxGSY8fOlMWZZ23nWpAVFhq9TDSfuhO/view" target="_blank">Ver PDF</a></div>
+    </div>
+
+    <div class="area">
+      <h3>Sistemas y almacenamiento</h3>
+      <div class="row"><h4>RAID 0, 1 y 5 en Windows Server</h4><p>Creación de volúmenes, simulación de fallo de disco y reconstrucción del RAID.</p><span class="meta">ASIR · Fundamentos de Hardware</span><a href="https://drive.google.com/file/d/1AaEXhTe2f_7hTPqhagmh64Uxvp9Kvh1l/view" target="_blank">Ver PDF</a></div>
+      <div class="row"><h4>RAID 1 en Linux con mdadm</h4><p>Creación del array, particionado, sistema de ficheros y montaje.</p><span class="meta">SMR</span><a href="https://drive.google.com/file/d/1eu5c22z9TZmdiCHSj24shnihi5nsi9_S/view" target="_blank">Ver PDF</a></div>
+      <div class="row"><h4>RAID 5 en Linux con mdadm</h4><p>Array de tres discos en ext4 con montaje permanente por UUID en fstab.</p><span class="meta">SMR</span><a href="https://drive.google.com/file/d/1d17o8egd48Wghsd8IbUcrNgW0j6aT0sE/view" target="_blank">Ver PDF</a></div>
+      <div class="row"><h4>Gestión de discos en Linux</h4><p>Particionado con fdisk, formato ext4, puntos de montaje y montaje automático en el arranque.</p><span class="meta">ASIR · Fundamentos de Hardware</span><a href="https://drive.google.com/file/d/1-3Opcg8BMadI0A02iV0d-3R8sESuGkmg/view" target="_blank">Ver PDF</a></div>
+      <div class="row"><h4>Particiones MBR en Windows y Linux</h4><p>Particiones primarias, extendida y lógicas en una máquina con arranque dual.</p><span class="meta">ASIR · Fundamentos de Hardware</span><a href="https://drive.google.com/file/d/1BL5dGFbqFqgx8yaxVnkeC70Mx7c5dd0L/view" target="_blank">Ver PDF</a></div>
+      <div class="row"><h4>Usuarios y grupos en Linux</h4><p>Alta de usuarios con directorio home y shell propios, grupos primarios y secundarios.</p><span class="meta">ASIR · Fundamentos de Hardware</span><a href="https://drive.google.com/file/d/1Hl8xfmdQ4IyIKZmmDNDjOSGDuOODrgB2/view" target="_blank">Ver PDF</a></div>
+      <div class="row"><h4>Permisos especiales: setgid y sticky bit</h4><p>Directorio compartido de grupo con herencia de grupo y protección contra borrado entre usuarios.</p><span class="meta">ASIR · Fundamentos de Hardware</span><a href="https://drive.google.com/file/d/1T89SqFFXWIfqEi1lpNZZW4qu6njtDMYY/view" target="_blank">Ver PDF</a></div>
+      <div class="row"><h4>Instalación de Peppermint OS en VirtualBox</h4><p>Dimensionado de la máquina virtual, instalación, actualización del sistema y Guest Additions.</p><span class="meta">ASIR · Sistemas Operativos</span><a href="https://drive.google.com/file/d/1yxQPYDt6pFYWuUGq5cZzP6r3CfmmsDU9/view" target="_blank">Ver PDF</a></div>
+    </div>
+
+    <div class="area">
+      <h3>Seguridad</h3>
+      <div class="row"><h4>Protección del gestor de arranque GRUB</h4><p>Usuarios autorizados y contraseñas cifradas con PBKDF2 para impedir cambios en el arranque.</p><span class="meta">SMR · Seguridad Informática</span><a href="https://drive.google.com/file/d/1SMBWHb-guLpJO1vK-sXtx3dkYYxTgkbs/view" target="_blank">Ver PDF</a></div>
+      <div class="row"><h4>Firma digital y verificación con GPG</h4><p>Intercambio de claves públicas, firma de un archivo y detección de modificaciones.</p><span class="meta">SMR · Seguridad Informática</span><a href="https://drive.google.com/file/d/1a98LAvHyDpCf9I2PbfhEE5DwurmiQZpc/view" target="_blank">Ver PDF</a></div>
+      <div class="row"><h4>Recuperación de archivos borrados</h4><p>Recuperación desde un pendrive con PhotoRec y Recuva.</p><span class="meta">SMR · Seguridad Informática</span><a href="https://drive.google.com/file/d/117H4jgPnIVEGOkrAn9ny0p8ZEXtoVJs0/view" target="_blank">Ver PDF</a></div>
+    </div>
+
+    <div class="area">
+      <h3>Automatización y empresa</h3>
+      <div class="row"><h4>Timbre musical automatizado</h4><p>Script en Bash que reproduce una canción aleatoria de una lista, programado con cron en los equipos del centro donde hice las prácticas de SMR.</p><span class="meta">Prácticas SMR · Bash</span><a href="scripts/reproducir_aleatorio.sh" target="_blank">Ver script</a></div>
+      <div class="row"><h4>Plan de transformación digital</h4><p>Diagnóstico DAFO y propuesta de ERP, CRM, IoT y ciberseguridad para una pyme de Málaga. Trabajo en grupo.</p><span class="meta">ASIR · Digitalización</span><a href="https://drive.google.com/file/d/1jy6w4ot7v9HRYXfGQd1KV8p8qt7rz6Zl/view" target="_blank">Ver PDF</a></div>
+    </div>
+  </section>
+
+  <section id="stack">
+    <h2>Stack técnico</h2>
+    <p class="lead">Herramientas con las que he trabajado en prácticas y laboratorios.</p>
+    <div class="stack">
+      <div><h4>Sistemas</h4><p>Windows Server, Windows 10/11, Ubuntu Server, Debian, Peppermint OS, CachyOS</p></div>
+      <div><h4>Redes</h4><p>Cisco IOS, VLAN, OSPF, BGP, RIP, EIGRP, ACL, subnetting y VLSM, cableado UTP</p></div>
+      <div><h4>Servicios</h4><p>DNS (Bind9), DHCP, SSH, FTP, RDP, Nginx, Apache, Webmin, Cockpit</p></div>
+      <div><h4>Almacenamiento y virtualización</h4><p>RAID 0/1/5, mdadm, fdisk, fstab, VirtualBox, Hyper-V</p></div>
+      <div><h4>Seguridad</h4><p>Kali Linux, GPG, UFW, PhotoRec, protección de GRUB</p></div>
+      <div><h4>Web, datos y scripting</h4><p>HTML, CSS, JavaScript, PHP, MySQL, XAMPP, Bash, cron</p></div>
+    </div>
+    <p class="learning"><b>Este curso estoy trabajando con:</b> Active Directory, GPO, PowerShell, servicios de red e Internet, cortafuegos, VPN, alta disponibilidad y administración de bases de datos.</p>
+  </section>
+</main>
+
+<footer id="contacto"><div class="wrap">
+  <span>Darío Salas Amador · Málaga</span>
+  <span><a href="mailto:dariiosalaas@gmail.com">dariiosalaas@gmail.com</a> · +34 611 409 430</span>
+</div></footer>
+</body>
+</html>
